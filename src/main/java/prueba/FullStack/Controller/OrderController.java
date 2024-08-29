@@ -40,16 +40,13 @@ public class OrderController {
 
     @PostMapping("/delete")
     public Mono<Void> deleteOrder(@RequestBody RequestIDDTO requestId) {
-       orderService.deleteOrder(requestId.getId());
-        return Mono.empty();
+        return orderService.deleteOrder(requestId.getId());
     }
 
     @GetMapping
     public Flux<Order> listOrders() {
         return orderService.getAllOrders();
     }
-
-
 
 
 }

@@ -48,8 +48,7 @@ public class OrderService {
 
     @Transactional
     public Mono<Void> deleteOrder(String id){
-        orderRepository.deleteById(id);
-        return Mono.empty();
+         return orderRepository.deleteById(id);
     }
 }
 

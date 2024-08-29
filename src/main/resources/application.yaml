@@ -4,7 +4,7 @@ spring:
   devtools:
     add-properties: false
   r2dbc:
-    url: r2dbc:postgresql://${HOST_SQL}:5432/test
+    url: r2dbc:postgresql://${HOST_SQL}:${PORT}/test
     username: ${USER}
     password: ${PASSWORD}
   datasource:

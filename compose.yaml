@@ -24,15 +24,18 @@ services:
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "5432:5432"
+      - "5433:5432"
     networks:
       - project
+
 
   app:
     build:
       context: "."
       dockerfile: Dockerfile
     container_name: "app"
+    environment:
+      PORT: 5432
     depends_on:
       mongo:
         condition: service_started

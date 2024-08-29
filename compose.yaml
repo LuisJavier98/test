@@ -1,0 +1,50 @@
+version: '3.1'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGO_INITDB_DATABASE: admin
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+    networks:
+      - project
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: test
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - project
+
+  app:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    container_name: "app"
+    depends_on:
+      mongo:
+        condition: service_started
+      db:
+        condition: service_started
+    ports:
+      - "8080:8090"
+    env_file: "./.env"
+    networks:
+      - project
+
+networks:
+  project:
+    driver: bridge
+

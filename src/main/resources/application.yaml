@@ -1,0 +1,28 @@
+server:
+  port: 8090
+spring:
+  devtools:
+    add-properties: false
+  r2dbc:
+    url: r2dbc:postgresql://${HOST_SQL}:5432/test
+    username: ${USER}
+    password: ${PASSWORD}
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  data:
+    mongodb:
+      uri: mongodb://${USER}:${PASSWORD}@${HOST_MONGO}:27017/admin
+
+logging:
+  level:
+    web: DEBUG
+
+springdoc :
+  api-docs:
+    title: Mi API
+  description : Descripción de la API
+  version: 1.0.0
